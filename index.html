@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOPPELGANGER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Full-screen background shader -->
+    <canvas id="background-shader" data-shader="chrome-liquid"></canvas>
+    
+    
+    <header>
+        <h1>DOPPELGANGER</h1>
+        <nav class="nav-desktop">
+            <a href="#about">ABOUT</a>
+            <a href="#live-dates">LIVE DATES</a>  
+            <a href="#contact">CONTACT</a>
+        </nav>
+        <button class="burger-menu" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-mobile">
+            <a href="#about">ABOUT</a>
+            <a href="#live-dates">LIVE DATES</a>  
+            <a href="#contact">CONTACT</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container hero-grid">
+                <canvas class="hero-shader" data-shader="liquid-metal"></canvas>
+                <div class="hero-text">
+                    <h2>DOPPELGANGER</h2>
+                    <p>Berlin-based duo creating immersive experiences that blur boundaries between digital realms, live performance, and perceptual reality.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/dcpwg4vjWik" 
+                    title="Doppelganger Performance" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="about-content container">
+                <h2>ABOUT</h2>
+                <p>Doppelganger is a Berlin-based audiovisual duo comprising Jacopo Castellano and Niels Poensgen, merging live visual performances with conceptual multimedia art. Their work creates immersive experiences that blur boundaries between digital realms, live performance, and perceptual reality.</p>
+                
+                <div class="artist-bios">
+                    <div class="artist-bio">
+                        <h3>Jacopo Castellano</h3>
+                        <p>Jacopo Castellano is a video artist celebrated for his captivating projections and innovative collaborations. He has created visual experiences for prestigious institutions such as the Magdeburg Opera House and Ballet, Zurich Tonhalle, Leipzig Gewandhaus, and the Colombia National Ballet. Jacopo's distinct visual style emphasizes fluid movement, profound abstraction, and the interplay between light and space.</p>
+                        <a href="https://www.jacopocastellano.com/" target="_blank">Website</a>
+                    </div>
+                    
+                    <div class="artist-bio">
+                        <h3>Niels Poensgen</h3>
+                        <p>Niels Poensgen is a multimedia artist who explores the intricate relationships between technological, human, and ecological systems. His work, grounded in creative coding and electronic engineering, is informed by his studies in Sound Studies and Sonic Arts at the Universität der Künste Berlin (UDK). Through interactive installations and audiovisual compositions, Niels challenges perceptions of agency, identity, and interaction.</p>
+                        <a href="https://nielspoensgen.com/" target="_blank">Website</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="live-dates">
+            <div class="dates-content container">
+                <h2 style="grid-column: 1 / -1; text-align: center; margin-bottom: 60px;">LIVE DATES</h2>
+                <div class="dates-section">
+                    <h3>Upcoming Performances</h3>
+                    <div class="date-list" id="upcoming-dates">
+                        <div class="loading">Loading upcoming dates...</div>
+                    </div>
+                </div>
+                
+                <div class="dates-section">
+                    <h3>Past Highlights</h3>
+                    <div class="date-list" id="past-dates">
+                        <div class="loading">Loading past dates...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>CONTACT</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p>For bookings, collaborations, and inquiries:</p>
+                    <a href="mailto:contact@doppelgangerav.com">contact@doppelgangerav.com</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 DOPPELGANGER. ALL RIGHTS RESERVED.</p>
+        <div class="social">
+            <a href="https://www.instagram.com/doppelganger_nj/">INSTAGRAM</a>
+            <!-- <a href="#">YOUTUBE</a>
+            <a href="#">SOUNDCLOUD</a> -->
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

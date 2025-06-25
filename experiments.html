@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHADER EXPERIMENTS | DOPPELGANGER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #ffffff;
+            color: #000000;
+            line-height: 1.4;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 60px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #000000;
+            padding-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 400;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .experiments-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 80px;
+        }
+
+        .experiment {
+            border-bottom: 1px solid #cccccc;
+            padding-bottom: 60px;
+        }
+
+        .experiment:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .experiment-header {
+            display: flex;
+            align-items: baseline;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .experiment-number {
+            font-size: 72px;
+            font-weight: 400;
+            line-height: 1;
+            color: #000000;
+            min-width: 120px;
+        }
+
+        .experiment-title {
+            font-size: 32px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            flex: 1;
+        }
+
+        .experiment-description {
+            margin-left: 150px;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .experiment-description p {
+            margin-bottom: 15px;
+            color: #666666;
+            line-height: 1.6;
+        }
+
+        .experiment-canvas {
+            width: calc(100% - 120px);
+            height: 50vh;
+            margin: 0 60px;
+            background: #000000;
+            display: block;
+        }
+
+        .tech-details {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tech-details span {
+            color: #999999;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            color: #000000;
+            text-decoration: none;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #000000;
+            padding-bottom: 2px;
+            transition: all 0.2s;
+        }
+
+        .back-link:hover {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 8px 12px;
+            border-bottom: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .experiment-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .experiment-number {
+                font-size: 48px;
+                min-width: auto;
+            }
+
+            .experiment-title {
+                font-size: 24px;
+            }
+
+            .experiment-description {
+                margin-left: 0;
+                margin-bottom: 30px;
+            }
+
+            .experiment-canvas {
+                width: calc(100% - 60px);
+                height: 40vh;
+                margin: 0 30px;
+            }
+
+            .tech-details {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .back-link {
+                position: relative;
+                top: auto;
+                left: auto;
+                display: inline-block;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Back to Main</a>
+
+    <div class="container">
+        <header>
+            <h1>Shader Experiments</h1>
+            <p class="subtitle">Visual Development for DOPPELGANGER</p>
+        </header>
+
+        <div class="experiments-grid">
+            <!-- Experiment 01: Liquid Metal Flow -->
+            <div class="experiment">
+                <div class="experiment-header">
+                    <div class="experiment-number">01</div>
+                    <h2 class="experiment-title">Liquid Metal Flow</h2>
+                </div>
+                <div class="experiment-description">
+                    <p>Metallic liquid mercury-like surface with reflections. Raymarched signed distance fields create flowing, rippling metallic surfaces with high contrast reflections.</p>
+                    <div class="tech-details">
+                        <span>Technique: SDF Raymarching</span>
+                        <span>Movement: Flowing Ripples</span>
+                        <span>Aesthetic: Minimal Techno</span>
+                    </div>
+                </div>
+                <canvas class="experiment-canvas" data-shader="liquid-metal"></canvas>
+            </div>
+
+            <!-- Experiment 02: Geometric Spiral -->
+            <div class="experiment">
+                <div class="experiment-header">
+                    <div class="experiment-number">02</div>
+                    <h2 class="experiment-title">Geometric Spiral</h2>
+                </div>
+                <div class="experiment-description">
+                    <p>Hypnotic spiral patterns with mathematical precision. Golden ratio spirals expand and contract in synchronized motion creating meditative geometric forms.</p>
+                    <div class="tech-details">
+                        <span>Technique: Polar Mathematics</span>
+                        <span>Movement: Spiral Expansion</span>
+                        <span>Aesthetic: Sacred Geometry</span>
+                    </div>
+                </div>
+                <canvas class="experiment-canvas" data-shader="geometric-spiral"></canvas>
+            </div>
+
+            <!-- Experiment 03: Pulse Grid -->
+            <div class="experiment">
+                <div class="experiment-header">
+                    <div class="experiment-number">03</div>
+                    <h2 class="experiment-title">Pulse Grid</h2>
+                </div>
+                <div class="experiment-description">
+                    <p>Rhythmic grid system with beat-synchronized pulsing. Each cell responds to different frequency ranges creating visual music in stark black and white contrast.</p>
+                    <div class="tech-details">
+                        <span>Technique: Grid Modulation</span>
+                        <span>Movement: Beat Synchronization</span>
+                        <span>Aesthetic: Minimal Techno</span>
+                    </div>
+                </div>
+                <canvas class="experiment-canvas" data-shader="pulse-grid"></canvas>
+            </div>
+
+            <!-- Experiment 04: Morse Code Matrix -->
+            <div class="experiment">
+                <div class="experiment-header">
+                    <div class="experiment-number">04</div>
+                    <h2 class="experiment-title">Morse Code Matrix</h2>
+                </div>
+                <div class="experiment-description">
+                    <p>Communication through light patterns. Morse code messages cascade across the screen in dot-dash formations, spelling out hidden messages in binary rhythm.</p>
+                    <div class="tech-details">
+                        <span>Technique: Pattern Encoding</span>
+                        <span>Movement: Message Flow</span>
+                        <span>Aesthetic: Digital Communication</span>
+                    </div>
+                </div>
+                <canvas class="experiment-canvas" data-shader="morse-matrix"></canvas>
+            </div>
+
+            <!-- Experiment 05: Plasma Storm -->
+            <div class="experiment">
+                <div class="experiment-header">
+                    <div class="experiment-number">05</div>
+                    <h2 class="experiment-title">Plasma Storm</h2>
+                </div>
+                <div class="experiment-description">
+                    <p>Energetic plasma fields with electric discharge patterns. High-voltage visual effects create lightning-like formations with vibrant color storms and energy cascades.</p>
+                    <div class="tech-details">
+                        <span>Technique: Electric Fields</span>
+                        <span>Movement: Energy Discharge</span>
+                        <span>Aesthetic: Electric Storm</span>
+                    </div>
+                </div>
+                <canvas class="experiment-canvas" data-shader="plasma-storm"></canvas>
+            </div>
+
+            <!-- Experiment 06: Fluid Dynamics -->
+            <div class="experiment">
+                <div class="experiment-header">
+                    <div class="experiment-number">06</div>
+                    <h2 class="experiment-title">Fluid Dynamics</h2>
+                </div>
+                <div class="experiment-description">
+                    <p>Real-time fluid simulation with pressure and velocity fields. Navier-Stokes equations drive viscous fluid behavior with turbulence and vorticity for realistic liquid motion.</p>
+                    <div class="tech-details">
+                        <span>Technique: Navier-Stokes</span>
+                        <span>Movement: Turbulent Flow</span>
+                        <span>Aesthetic: Liquid Motion</span>
+                    </div>
+                </div>
+                <canvas class="experiment-canvas" data-shader="fluid-dynamics"></canvas>
+            </div>
+
+
+            <!-- Experiment 09: Typography Morph -->
+            <div class="experiment">
+                <div class="experiment-header">
+                    <div class="experiment-number">09</div>
+                    <h2 class="experiment-title">Typography Morph</h2>
+                </div>
+                <div class="experiment-description">
+                    <p>Morphing text shapes with signed distance fields. Large typography transforms and dissolves using SDF techniques for smooth letter transitions and effects.</p>
+                    <div class="tech-details">
+                        <span>Technique: SDF Text</span>
+                        <span>Movement: Letter Morphing</span>
+                        <span>Aesthetic: Typography Art</span>
+                    </div>
+                </div>
+                <canvas class="experiment-canvas" data-shader="typography-morph"></canvas>
+            </div>
+
+
+            <!-- Experiment 25: Chrome Liquid -->
+            <div class="experiment">
+                <div class="experiment-header">
+                    <div class="experiment-number">25</div>
+                    <h2 class="experiment-title">Chrome Liquid</h2>
+                </div>
+                <div class="experiment-description">
+                    <p>Ultra-reflective liquid chrome with perfect mirror surfaces. Environmental reflections and distortions create photorealistic metallic liquid effects.</p>
+                    <div class="tech-details">
+                        <span>Technique: Reflection SDF</span>
+                        <span>Movement: Mirror Flow</span>
+                        <span>Aesthetic: Chrome Perfection</span>
+                    </div>
+                </div>
+                <canvas class="experiment-canvas" data-shader="chrome-liquid"></canvas>
+            </div>
+
+            <!-- Experiment 26: Neon Genesis -->
+            <div class="experiment">
+                <div class="experiment-header">
+                    <div class="experiment-number">26</div>
+                    <h2 class="experiment-title">Neon Genesis</h2>
+                </div>
+                <div class="experiment-description">
+                    <p>Animated halftone patterns with moving dot grids. Variable dot sizes create rhythmic visual textures inspired by cyberpunk aesthetics and retro printing techniques.</p>
+                    <div class="tech-details">
+                        <span>Technique: Halftone Dots</span>
+                        <span>Movement: Grid Animation</span>
+                        <span>Aesthetic: Cyberpunk Retro</span>
+                    </div>
+                </div>
+                <canvas class="experiment-canvas" data-shader="neon-genesis"></canvas>
+            </div>
+
+            <!-- Experiment 27: Quantum Flux -->
+            <div class="experiment">
+                <div class="experiment-header">
+                    <div class="experiment-number">27</div>
+                    <h2 class="experiment-title">Quantum Flux</h2>
+                </div>
+                <div class="experiment-description">
+                    <p>Organic flowing patterns using multi-layered noise functions. Perlin noise creates fluid-like distortions and flowing forms in grayscale minimalism.</p>
+                    <div class="tech-details">
+                        <span>Technique: Perlin Noise</span>
+                        <span>Movement: Organic Flow</span>
+                        <span>Aesthetic: Fluid Minimalism</span>
+                    </div>
+                </div>
+                <canvas class="experiment-canvas" data-shader="quantum-flux"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="experiments.js"></script>
+</body>
+</html>
