@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLAVY | Video Projections for Classical Music & Ballet — Doppelganger</title>
+    <meta name="description" content="Clavy designs and performs video projections for classical concerts and ballet — the classical-music-visuals practice of the Berlin audiovisual duo Doppelganger.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.doppelganger.mov/clavy.html">
+    <meta property="og:title" content="CLAVY | Video Projections for Classical Music & Ballet">
+    <meta property="og:description" content="Clavy designs and performs video projections for classical concerts and ballet. A Doppelganger project.">
+    <meta property="og:image" content="https://www.doppelganger.mov/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.doppelganger.mov/clavy.html">
+    <meta name="twitter:title" content="CLAVY | Video Projections for Classical Music & Ballet">
+    <meta name="twitter:description" content="Clavy designs and performs video projections for classical concerts and ballet. A Doppelganger project.">
+    <meta name="twitter:image" content="https://www.doppelganger.mov/og-image.jpg">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.doppelganger.mov/clavy.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Clavy page-specific layout (reuses the shared style.css for everything else) -->
+    <style>
+        .center-section {
+            padding: 80px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-subtitle {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .principles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .principle h3 {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .principle p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333333;
+            margin-bottom: 0;
+        }
+
+        .method-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .method-block h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .method-block p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #333333;
+            margin-bottom: 0;
+        }
+
+        .work-quote {
+            margin-top: 18px;
+            padding-left: 20px;
+            border-left: 2px solid var(--light-text-color);
+            font-style: italic;
+            color: #d0c9dd;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .work-quote cite {
+            display: block;
+            margin-top: 8px;
+            font-style: normal;
+            font-size: 12px;
+            color: #9a93ab;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .videotrack-note {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 17px;
+            line-height: 1.7;
+            color: #e2dded;
+            max-width: 760px;
+        }
+
+        /* The work section keeps the dark shader background, so its text is light */
+        #work {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        #work h2,
+        #work .work-title {
+            color: var(--light-text-color);
+        }
+
+        #work .work-description {
+            color: #e2dded;
+        }
+
+        #work .work-year {
+            color: #c3bcd4;
+        }
+
+        #work .work-item {
+            border-bottom-color: rgba(255, 255, 255, 0.22);
+        }
+
+        /* Clickable header that reveals the production video */
+        #work .work-header {
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .work-meta {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .work-toggle {
+            font-size: 22px;
+            line-height: 1;
+            color: var(--light-text-color);
+            transition: transform 0.3s ease;
+        }
+
+        #work .work-item.open .work-toggle {
+            transform: rotate(45deg);
+        }
+
+        #work .work-header:hover .work-title,
+        #work .work-header:focus-visible .work-title {
+            opacity: 0.7;
+        }
+
+        /* Collapsible panel: animates height via grid-template-rows */
+        .work-video {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s ease;
+        }
+
+        #work .work-item.open .work-video {
+            grid-template-rows: 1fr;
+        }
+
+        .work-video-inner {
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .video-embed {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            margin-top: 24px;
+            background: #000000;
+        }
+
+        .video-embed iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        #within {
+            background: var(--text-overlay-dark);
+            color: var(--light-text-color);
+            padding: 60px;
+        }
+
+        #within h2 {
+            color: var(--light-text-color);
+        }
+
+        #within p {
+            font-size: 18px;
+            max-width: 700px;
+            margin-bottom: 24px;
+        }
+
+        #within a {
+            color: var(--light-text-color);
+            border-bottom-color: var(--light-text-color);
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        #within a:hover {
+            background-color: var(--light-text-color);
+            color: var(--text-overlay-dark);
+        }
+
+        @media (max-width: 768px) {
+            .center-section {
+                padding: 60px 30px;
+            }
+
+            .principles {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            #within {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "Clavy",
+        "description": "Clavy is a Doppelganger project: video projections designed and performed live for classical concerts and ballet.",
+        "url": "https://www.doppelganger.mov/clavy.html",
+        "isPartOf": {
+            "@type": "PerformingGroup",
+            "name": "Doppelganger",
+            "url": "https://www.doppelganger.mov"
+        },
+        "creator": {
+            "@type": "Person",
+            "name": "Jacopo Castellano",
+            "url": "https://www.jacopocastellano.com/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Full-screen background shader -->
+    <canvas id="background-shader" data-shader="chrome-liquid" data-tint="1.12,0.78,1.25"></canvas>
+
+    <header>
+        <h1>CLAVY</h1>
+        <nav class="nav-desktop">
+            <a href="#about">ABOUT</a>
+            <a href="#method">METHOD</a>
+            <a href="#work">WORK</a>
+            <a href="#contact">CONTACT</a>
+            <a href="/">DOPPELGANGER</a>
+        </nav>
+        <button class="burger-menu" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-mobile">
+            <a href="#about">ABOUT</a>
+            <a href="#method">METHOD</a>
+            <a href="#work">WORK</a>
+            <a href="#contact">CONTACT</a>
+            <a href="/">DOPPELGANGER</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container hero-grid">
+                <canvas class="hero-shader" data-shader="liquid-metal"></canvas>
+                <div class="hero-text">
+                    <p class="hero-subtitle">A Doppelganger project</p>
+                    <h2>CLAVY</h2>
+                    <p>Clavy designs and performs video projections for classical concerts and ballet.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="center-section">
+            <div class="about-content">
+                <h2>About</h2>
+                <p>Clavy is a Doppelganger project working on the visual side of live classical music. We design projections for concerts and ballet and then perform them live. The people involved are classical musicians, filmmakers, and stage and video designers. The work comes down to three things: balance, control, and flow.</p>
+
+                <div class="principles">
+                    <div class="principle">
+                        <h3>Balance</h3>
+                        <p>The image and the music have to agree, or the whole thing feels off. Usually you can't say why: a cut lands too hard, a colour is too bright, the video is half a second late. Most of these problems sit below conscious attention, which is why we treat them as design problems and test for them the same way an interface gets tested.</p>
+                    </div>
+                    <div class="principle">
+                        <h3>Control</h3>
+                        <p>Nothing is improvised during the concert. One person holds the video parameters and moves them in real time, the way a player shapes a phrase. That only works because everything is prepared first. Every cue is set, rehearsed, and calibrated before the doors open, so the system behaves like an instrument rather than a file playing back.</p>
+                    </div>
+                    <div class="principle">
+                        <h3>Flow</h3>
+                        <p>Classical music doesn't keep a fixed clock. The tempo follows the phrase, the breath, the room, and it changes with each performer and each night. This is why the click track that runs pop and techno shows doesn't work here. The visuals have to move with the interpretation as it happens.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="method" class="center-section">
+            <div class="about-content">
+                <h2>How it works</h2>
+                <div class="method-list">
+                    <div class="method-block">
+                        <h3>The live factor</h3>
+                        <p>In a classical concert the range of colour, dynamics, and nuance is wider than software can follow on its own. The instruments are analog and no two readings of a piece are the same, even from the same musician. Locking the visuals to a metronome would fight the music instead of supporting it.</p>
+                    </div>
+                    <div class="method-block">
+                        <h3>The on-stage designer</h3>
+                        <p>So the video designer sits on stage and plays. Classically trained, facing the audience, reading a score marked for picture as well as sound, following the music from the same place as everyone else in the ensemble. When it works, people stop thinking about the technology and just watch the performance.</p>
+                    </div>
+                    <div class="method-block">
+                        <h3>Versions, not a final cut</h3>
+                        <p>Each performance shows us something we missed, so the project keeps changing. There is no single finished film. A production exists in versions, adjusted for the performer and the venue.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="works-content container">
+                <h2>Selected Work</h2>
+                <div class="works-list">
+                    <div class="work-item">
+                        <div class="work-header" role="button" tabindex="0" aria-expanded="false">
+                            <h3 class="work-title">Stabat Mater</h3>
+                            <div class="work-meta">
+                                <span class="work-year">2015</span>
+                                <span class="work-toggle" aria-hidden="true">+</span>
+                            </div>
+                        </div>
+                        <p class="work-description">A ballet with choreographer Gonzalo Galguera at Theater Magdeburg, and the first production where this way of working took shape.</p>
+                        <div class="work-video">
+                            <div class="work-video-inner">
+                                <div class="video-embed" data-src="https://www.youtube.com/embed/_wZSIgEQaQE?rel=0"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-item">
+                        <div class="work-header" role="button" tabindex="0" aria-expanded="false">
+                            <h3 class="work-title">The Lost Steps</h3>
+                            <div class="work-meta">
+                                <span class="work-year">2016</span>
+                                <span class="work-toggle" aria-hidden="true">+</span>
+                            </div>
+                        </div>
+                        <p class="work-description">A ballet after Alejo Carpentier's novel for the National Ballet of Colombia in Cali, choreographed by Gonzalo Galguera. Eleven semi-translucent columns doubled as projection surfaces and were reconfigured into thirteen scene combinations across the work's twenty-four episodes. Built over six months in Isadora and MadMapper.</p>
+                        <div class="work-video">
+                            <div class="work-video-inner">
+                                <div class="video-embed" data-src="https://www.youtube.com/embed/U8136DAmlqU?rel=0"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-item">
+                        <div class="work-header" role="button" tabindex="0" aria-expanded="false">
+                            <h3 class="work-title">Carmina Burana</h3>
+                            <div class="work-meta">
+                                <span class="work-year">2016</span>
+                                <span class="work-toggle" aria-hidden="true">+</span>
+                            </div>
+                        </div>
+                        <p class="work-description">Video for Carl Orff's cantata, performed with the Philharmonisches Kammerorchester Berlin and the National Ballet of Colombia, among others. A pre-written video score running across all twenty-five movements, working through atmosphere rather than literal illustration.</p>
+                        <div class="work-video">
+                            <div class="work-video-inner">
+                                <div class="video-embed" data-src="https://www.youtube.com/embed/19C0KJH-vys?rel=0"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-item">
+                        <div class="work-header" role="button" tabindex="0" aria-expanded="false">
+                            <h3 class="work-title">Dracula</h3>
+                            <div class="work-meta">
+                                <span class="work-year">2019</span>
+                                <span class="work-toggle" aria-hidden="true">+</span>
+                            </div>
+                        </div>
+                        <p class="work-description">A full-length ballet after Bram Stoker at the Magdeburg Opera House, choreographed by Gonzalo Galguera with the Ballett Magdeburg and the Magdeburgische Philharmonie. Pre-recorded choreography, shot in 4K, played back live so the dancers on stage moved against their own projected doubles.</p>
+                        <blockquote class="work-quote">
+                            "The video projections by Jacopo Castellano are particularly effective, creating an atmosphere that is both haunting and beautiful."
+                            <cite>Dancing Times, May 2019</cite>
+                        </blockquote>
+                        <div class="work-video">
+                            <div class="work-video-inner">
+                                <div class="video-embed" data-src="https://www.youtube.com/embed/S18tfTQv78o?rel=0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="videotrack-note">What ties these together is the idea of a videotrack: a visual line written for one piece of music and performed live with it, the way a soundtrack works for a silent film.</p>
+            </div>
+        </section>
+
+        <section id="within">
+            <div class="container">
+                <h2>Within Doppelganger</h2>
+                <p>Clavy is the classical side of Doppelganger's work.</p>
+                <a href="/">&larr; Back to Doppelganger</a>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>CONTACT</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p>For programming, commissions, and collaborations:</p>
+                    <a href="mailto:info@doppelganger.mov">info@doppelganger.mov</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 DOPPELGANGER. ALL RIGHTS RESERVED.</p>
+        <div class="social">
+            <a href="https://www.instagram.com/doppelganger_nj/">INSTAGRAM</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="clavy.js"></script>
+</body>
+</html>

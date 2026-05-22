@@ -26,6 +26,7 @@ class ShaderManager {
         return `
             uniform float time;
             uniform vec2 resolution;
+            uniform vec3 tint;
             varying vec2 vUv;
             
             // SDF for sphere
@@ -110,6 +111,9 @@ class ShaderManager {
                     // Ambient glow from near misses
                     color += exp(-minDist * 3.0) * 0.2;
                 }
+
+                // Per-canvas colour tint (neutral white by default)
+                color *= tint;
                 
                 gl_FragColor = vec4(color, 1.0);
             }
@@ -120,6 +124,7 @@ class ShaderManager {
         return `
             uniform float time;
             uniform vec2 resolution;
+            uniform vec3 tint;
             varying vec2 vUv;
             
             float random(vec2 st) {
@@ -229,6 +234,9 @@ class ShaderManager {
                 
                 // Final clamp to prevent any white spots
                 color = min(color, vec3(0.85));
+
+                // Per-canvas colour tint (neutral white by default)
+                color *= tint;
                 
                 gl_FragColor = vec4(color, 1.0);
             }
@@ -276,6 +284,16 @@ class ShaderManager {
             time: { value: 0.0 },
             resolution: { value: new THREE.Vector2(width, height) }
         };
+
+        // Optional per-canvas colour tint (RGB multipliers), e.g. data-tint="1.12,0.78,1.25"
+        let tint = new THREE.Vector3(1.0, 1.0, 1.0);
+        if (canvas.dataset.tint) {
+            const parts = canvas.dataset.tint.split(',').map(Number);
+            if (parts.length === 3 && parts.every(n => !isNaN(n))) {
+                tint = new THREE.Vector3(parts[0], parts[1], parts[2]);
+            }
+        }
+        uniforms.tint = { value: tint };
         
         // Get fragment shader based on type
         let fragmentShader;
