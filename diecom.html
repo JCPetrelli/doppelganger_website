@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>die&gt;com | Audiovisual Performance from Medical Imaging — Doppelganger</title>
+    <meta name="description" content="die>com is a Doppelganger live audiovisual performance for two projectors, built entirely from anonymized medical imaging — the body turned into a file, and the file turned back into a body on the wall.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.doppelganger.mov/diecom.html">
+    <meta property="og:title" content="die>com | Audiovisual Performance from Medical Imaging">
+    <meta property="og:description" content="A Doppelganger performance built entirely from anonymized medical imaging. The body turned into a file, and the file turned back into a body on the wall.">
+    <meta property="og:image" content="https://www.doppelganger.mov/diecom-poster.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.doppelganger.mov/diecom.html">
+    <meta name="twitter:title" content="die>com | Audiovisual Performance from Medical Imaging">
+    <meta name="twitter:description" content="A Doppelganger performance built entirely from anonymized medical imaging.">
+    <meta name="twitter:image" content="https://www.doppelganger.mov/diecom-poster.jpg">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.doppelganger.mov/diecom.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- die>com page-specific layout (reuses the shared style.css for everything else) -->
+    <style>
+        .hero-subtitle {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        /* Poster + text sit on the dark shader, so keep everything light */
+        #poster {
+            padding: 0 0 20px;
+        }
+
+        #poster .container {
+            max-width: 1100px;
+        }
+
+        #poster img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        #description {
+            background: var(--text-overlay-dark);
+            color: var(--light-text-color);
+            padding: 80px 60px;
+        }
+
+        #description .container {
+            max-width: 780px;
+        }
+
+        #description h2 {
+            color: var(--light-text-color);
+            margin-bottom: 30px;
+        }
+
+        #description p {
+            font-size: 18px;
+            line-height: 1.75;
+            color: #e2dded;
+            margin-bottom: 24px;
+        }
+
+        #description p:last-child {
+            margin-bottom: 0;
+        }
+
+        #description strong {
+            color: var(--light-text-color);
+        }
+
+        #description em {
+            color: #ffffff;
+        }
+
+        #within {
+            background: var(--text-overlay-dark);
+            color: var(--light-text-color);
+            padding: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        #within h2 {
+            color: var(--light-text-color);
+        }
+
+        #within p {
+            font-size: 18px;
+            max-width: 700px;
+            margin-bottom: 24px;
+        }
+
+        #within a {
+            color: var(--light-text-color);
+            border-bottom-color: var(--light-text-color);
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        #within a:hover {
+            background-color: var(--light-text-color);
+            color: var(--text-overlay-dark);
+        }
+
+        @media (max-width: 768px) {
+            #description {
+                padding: 60px 30px;
+            }
+
+            #within {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "die>com",
+        "description": "die>com is a Doppelganger live audiovisual performance for two projectors, built entirely from anonymized medical imaging.",
+        "url": "https://www.doppelganger.mov/diecom.html",
+        "image": "https://www.doppelganger.mov/diecom-poster.jpg",
+        "isPartOf": {
+            "@type": "PerformingGroup",
+            "name": "Doppelganger",
+            "url": "https://www.doppelganger.mov"
+        },
+        "creator": [
+            {
+                "@type": "Person",
+                "name": "Jacopo Castellano",
+                "url": "https://www.jacopocastellano.com/"
+            },
+            {
+                "@type": "Person",
+                "name": "Niels Poensgen",
+                "url": "https://nielspoensgen.com/"
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Full-screen background shader -->
+    <canvas id="background-shader" data-shader="chrome-liquid" data-tint="0.75,1.2,1.15"></canvas>
+
+    <header>
+        <h1>DIE&gt;COM</h1>
+        <nav class="nav-desktop">
+            <a href="#video">VIDEO</a>
+            <a href="#description">ABOUT</a>
+            <a href="#contact">CONTACT</a>
+            <a href="/">DOPPELGANGER</a>
+        </nav>
+        <button class="burger-menu" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-mobile">
+            <a href="#video">VIDEO</a>
+            <a href="#description">ABOUT</a>
+            <a href="#contact">CONTACT</a>
+            <a href="/">DOPPELGANGER</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container hero-grid">
+                <canvas class="hero-shader" data-shader="liquid-metal"></canvas>
+                <div class="hero-text">
+                    <p class="hero-subtitle">A Doppelganger performance</p>
+                    <h2>die&gt;com</h2>
+                    <p>A live audiovisual performance for two projectors, built entirely from anonymized medical imaging.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- REPLACE the YouTube ID below (YOUR_YOUTUBE_ID) with the real one once the video is up. -->
+        <section id="video">
+            <div class="video-container">
+                <iframe
+                    src="https://www.youtube.com/embed/YOUR_YOUTUBE_ID?rel=0"
+                    title="die>com — Doppelganger"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <section id="poster">
+            <div class="container">
+                <img src="diecom-poster.jpg" alt="die>com — a coronary angiogram rendered as glowing vessels, from the Doppelganger performance">
+            </div>
+        </section>
+
+        <section id="description">
+            <div class="container">
+                <h2>die&gt;com</h2>
+                <p><strong>die&gt;com</strong> is a live audiovisual performance for two projectors, built entirely from anonymized medical imaging: the body turned into a file, and the file turned back into a body on the wall.</p>
+                <p>The name reads three ways at once: <strong>DICOM</strong>, the format every hospital scan is saved in; <strong>die</strong>, as in mortality; and <strong>.com</strong>, the body as a product, a data stream, a domain. The material is real: every trace of identity is stripped (no name, no date) so what remains is simply <em>a body</em>, anyone's body.</p>
+                <p>The imagery moves through a small set of treatments: the body as a white wireframe drawn on black; arteries glowing like circuitry; contrast dye blooming in feedback trails like ink in water; the whole thing occasionally stuttering into glitch and the flat light of a diagnostic monitor. Niels Poensgen builds the audio from the material itself: sections of sound distorted and scattered in time, driven by the images' own motion, with a heartbeat that periodically flatlines into drone.</p>
+                <p><em>die&gt;com</em> is fully self-equipped and scales to the surface it is given: a club wall, a façade, a screen. Duration 30–60 minutes, adaptable, and it can be built to a specific room or act if the festival's venue matching pairs us with one.</p>
+            </div>
+        </section>
+
+        <section id="within">
+            <div class="container">
+                <h2>Within Doppelganger</h2>
+                <p>die&gt;com is one of Doppelganger's performance works.</p>
+                <a href="/">&larr; Back to Doppelganger</a>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>CONTACT</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p>For bookings, collaborations, and inquiries:</p>
+                    <a href="mailto:info@doppelganger.mov">info@doppelganger.mov</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 DOPPELGANGER. ALL RIGHTS RESERVED.</p>
+        <div class="social">
+            <a href="https://www.instagram.com/doppelganger_nj/">INSTAGRAM</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
