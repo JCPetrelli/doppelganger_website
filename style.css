@@ -185,6 +185,103 @@ header {
     padding: 20px 40px;
 }
 
+/* Work dropdown (shared nav — desktop hover, mobile click-to-expand) */
+.nav-dropdown {
+    position: relative;
+    display: inline-flex;
+}
+
+.nav-dropdown-toggle {
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--main-text-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+.nav-desktop .nav-dropdown-toggle::after {
+    content: " \25BE";
+}
+
+.nav-desktop .nav-submenu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    min-width: 180px;
+    background: var(--text-overlay-bg);
+    backdrop-filter: var(--backdrop-blur);
+    border: 1px solid var(--main-text-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+    z-index: 30;
+}
+
+.nav-desktop .nav-dropdown:hover .nav-submenu,
+.nav-desktop .nav-dropdown:focus-within .nav-submenu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-desktop .nav-submenu a {
+    font-size: 16px;
+    padding: 12px 20px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.nav-desktop .nav-submenu a:hover {
+    background-color: var(--main-text-color);
+    color: #ffffff;
+    padding: 12px 20px;
+}
+
+/* Mobile: the Work item expands inline inside the overlay */
+.nav-mobile .nav-dropdown {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.nav-mobile .nav-dropdown-toggle {
+    font-size: 24px;
+    padding: 20px 0;
+}
+
+.nav-mobile .nav-dropdown-toggle::after {
+    content: " \25BE";
+    font-size: 16px;
+}
+
+.nav-mobile .nav-dropdown.open .nav-dropdown-toggle::after {
+    content: " \25B4";
+}
+
+.nav-mobile .nav-submenu {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav-mobile .nav-dropdown.open .nav-submenu {
+    display: flex;
+    padding: 4px 0 12px;
+}
+
+.nav-mobile .nav-submenu a {
+    font-size: 20px;
+    padding: 8px 0;
+    opacity: 0.85;
+}
+
 /* Global Content Container */
 .container {
     width: 100%;

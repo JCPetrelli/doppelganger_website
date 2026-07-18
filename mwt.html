@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>die&gt;com | Audiovisual Performance from Medical Imaging — Doppelganger</title>
-    <meta name="description" content="die>com is a Doppelganger live audiovisual performance for two projectors, made entirely from anonymized medical imaging — the body converted into a file, then thrown back onto the wall at architectural scale.">
+    <title>MWT | Projection Mapping (2023) — Doppelganger</title>
+    <meta name="description" content="MWT (m-w-t.berlin) is Doppelganger's 2023 projection-mapping work — Jacopo Castellano and Niels Poensgen shaping video onto architecture and objects.">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.doppelganger.mov/diecom.html">
-    <meta property="og:title" content="die>com | Audiovisual Performance from Medical Imaging">
-    <meta property="og:description" content="A Doppelganger performance made entirely from anonymized medical imaging. The body converted into a file, then thrown back onto the wall at architectural scale.">
-    <meta property="og:image" content="https://www.doppelganger.mov/diecom-poster.jpg">
+    <meta property="og:url" content="https://www.doppelganger.mov/mwt.html">
+    <meta property="og:title" content="MWT | Projection Mapping (2023)">
+    <meta property="og:description" content="Doppelganger's 2023 projection-mapping work — video shaped onto architecture and objects. Two pieces: Memory and a mapping showcase.">
+    <meta property="og:image" content="https://img.youtube.com/vi/H4mOvRpuDsk/maxresdefault.jpg">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://www.doppelganger.mov/diecom.html">
-    <meta name="twitter:title" content="die>com | Audiovisual Performance from Medical Imaging">
-    <meta name="twitter:description" content="A Doppelganger performance made entirely from anonymized medical imaging.">
-    <meta name="twitter:image" content="https://www.doppelganger.mov/diecom-poster.jpg">
+    <meta name="twitter:url" content="https://www.doppelganger.mov/mwt.html">
+    <meta name="twitter:title" content="MWT | Projection Mapping (2023)">
+    <meta name="twitter:description" content="Doppelganger's 2023 projection-mapping work — video shaped onto architecture and objects.">
+    <meta name="twitter:image" content="https://img.youtube.com/vi/H4mOvRpuDsk/maxresdefault.jpg">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://www.doppelganger.mov/diecom.html">
+    <link rel="canonical" href="https://www.doppelganger.mov/mwt.html">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <!-- die>com page-specific layout (reuses the shared style.css for everything else) -->
+    <!-- MWT page-specific layout (reuses the shared style.css for everything else) -->
     <style>
         .hero-subtitle {
             font-size: 14px;
@@ -42,26 +42,10 @@
             opacity: 0.7;
         }
 
-        /* Poster + text sit on the dark shader, so keep everything light */
-        #poster {
-            padding: 0 0 20px;
-        }
-
-        #poster .container {
-            max-width: 1100px;
-        }
-
-        #poster img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-
         #description {
             background: var(--text-overlay-dark);
             color: var(--light-text-color);
-            padding: 80px 60px;
+            padding: 80px 60px 40px;
         }
 
         #description .container {
@@ -88,8 +72,32 @@
             color: var(--light-text-color);
         }
 
-        #description em {
-            color: #ffffff;
+        #works {
+            background: var(--text-overlay-dark);
+            color: var(--light-text-color);
+            padding: 20px 60px 80px;
+        }
+
+        #works .container {
+            max-width: 900px;
+        }
+
+        .mwt-piece {
+            margin-top: 40px;
+        }
+
+        .mwt-piece h3 {
+            font-size: 20px;
+            color: var(--light-text-color);
+            margin-bottom: 4px;
+        }
+
+        .mwt-piece .mwt-meta {
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #c3bcd4;
+            margin-bottom: 16px;
         }
 
         #within {
@@ -99,9 +107,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        #within h2 {
-            color: var(--light-text-color);
-        }
+        #within h2 { color: var(--light-text-color); }
 
         #within p {
             font-size: 18px;
@@ -123,13 +129,9 @@
         }
 
         @media (max-width: 768px) {
-            #description {
-                padding: 60px 30px;
-            }
-
-            #within {
-                padding: 40px 30px;
-            }
+            #description { padding: 60px 30px 20px; }
+            #works { padding: 20px 30px 60px; }
+            #within { padding: 40px 30px; }
         }
     </style>
 
@@ -138,36 +140,28 @@
     {
         "@context": "https://schema.org",
         "@type": "CreativeWork",
-        "name": "die>com",
-        "description": "die>com is a Doppelganger live audiovisual performance for two projectors, made entirely from anonymized medical imaging.",
-        "url": "https://www.doppelganger.mov/diecom.html",
-        "image": "https://www.doppelganger.mov/diecom-poster.jpg",
+        "name": "MWT",
+        "description": "MWT (m-w-t.berlin) is Doppelganger's 2023 projection-mapping work by Jacopo Castellano and Niels Poensgen.",
+        "url": "https://www.doppelganger.mov/mwt.html",
+        "dateCreated": "2023",
         "isPartOf": {
             "@type": "PerformingGroup",
             "name": "Doppelganger",
             "url": "https://www.doppelganger.mov"
         },
         "creator": [
-            {
-                "@type": "Person",
-                "name": "Jacopo Castellano",
-                "url": "https://www.jacopocastellano.com/"
-            },
-            {
-                "@type": "Person",
-                "name": "Niels Poensgen",
-                "url": "https://nielspoensgen.com/"
-            }
+            { "@type": "Person", "name": "Jacopo Castellano", "url": "https://www.jacopocastellano.com/" },
+            { "@type": "Person", "name": "Niels Poensgen", "url": "https://nielspoensgen.com/" }
         ]
     }
     </script>
 </head>
 <body>
     <!-- Full-screen background shader -->
-    <canvas id="background-shader" data-shader="chrome-liquid" data-tint="0.75,1.2,1.15"></canvas>
+    <canvas id="background-shader" data-shader="chrome-liquid" data-tint="1.05,1.05,1.2"></canvas>
 
     <header>
-        <h1>DIE&gt;COM</h1>
+        <h1>MWT</h1>
         <nav class="nav-desktop">
             <a href="/#about">ABOUT</a>
             <div class="nav-dropdown">
@@ -206,45 +200,57 @@
             <div class="container hero-grid">
                 <canvas class="hero-shader" data-shader="liquid-metal"></canvas>
                 <div class="hero-text">
-                    <p class="hero-subtitle">A Doppelganger performance</p>
-                    <h2>die&gt;com</h2>
-                    <p>A live audiovisual performance for two projectors, made entirely from anonymized medical imaging.</p>
+                    <p class="hero-subtitle">A Doppelganger project · 2023</p>
+                    <h2>MWT</h2>
+                    <p>Projection mapping — video shaped onto architecture and objects.</p>
                 </div>
-            </div>
-        </section>
-
-        <section id="video">
-            <div class="video-container">
-                <iframe
-                    src="https://www.youtube.com/embed/979vgMnHbJA?rel=0"
-                    title="die>com — Doppelganger"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </section>
-
-        <section id="poster">
-            <div class="container">
-                <img src="diecom-poster.jpg" alt="die>com — a coronary angiogram rendered as glowing vessels, from the Doppelganger performance">
             </div>
         </section>
 
         <section id="description">
             <div class="container">
-                <h2>die&gt;com</h2>
-                <p><strong>die&gt;com</strong> is a live audiovisual performance for two projectors, made entirely from anonymized medical imaging: the body converted into a file, then thrown back onto the wall at architectural scale.</p>
-                <p>The title is a pun that earns its keep. <strong>DICOM</strong> is the format every hospital scan is stored in; split it open and you get <strong>die</strong> and <strong>.com</strong>, mortality on one side, the body as data stream and product on the other. The scans themselves are real, stripped of every identifying trace. No name, no date. What's left is a body that could belong to anyone, which is precisely the point.</p>
-                <p>Visually the piece works through a narrow palette rather than an effects catalogue: white wireframes on black, arteries lit up like circuit paths, contrast dye blooming into feedback trails the way ink spreads in water, and passages where the image collapses into glitch or the flat, indifferent light of a diagnostic monitor. Niels Poensgen performs the sound live as an improvisation on the same theme. Not audio extracted from the scans, but a musical response to what the images are doing in the room, played against them in real time.</p>
-                <p><em>die&gt;com</em> travels fully self-equipped and adapts to whatever surface it's given, from a club wall to a façade. Duration is 20 minutes.</p>
+                <h2>About</h2>
+                <p><strong>MWT</strong> (m-w-t.berlin) is where Doppelganger — Jacopo Castellano and Niels Poensgen — first built large-surface work together, in 2023, before the duo settled into its live club practice.</p>
+                <p>The premise is projection mapping: footage cut and warped to fit a specific structure, thrown onto walls and objects so the image belongs to the surface rather than to a rectangular screen. It is the same instinct that runs through everything the duo does since — the picture living on real architecture, in a real room — worked out here at the scale of a building. Two pieces remain from it.</p>
+            </div>
+        </section>
+
+        <section id="works">
+            <div class="container">
+                <div class="mwt-piece">
+                    <h3>Memory</h3>
+                    <p class="mwt-meta">Short film · 2023</p>
+                    <div class="video-container">
+                        <iframe
+                            src="https://www.youtube.com/embed/H4mOvRpuDsk?rel=0"
+                            title="MWT — Memory"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="mwt-piece">
+                    <h3>Video Mapping</h3>
+                    <p class="mwt-meta">Mapping showcase · 2023</p>
+                    <div class="video-container">
+                        <iframe
+                            src="https://www.youtube.com/embed/rJrwCSThJz0?rel=0"
+                            title="MWT — Video Mapping"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="within">
             <div class="container">
                 <h2>Within Doppelganger</h2>
-                <p>die&gt;com is one of Doppelganger's performance works.</p>
+                <p>MWT is where the duo's mapping practice began.</p>
                 <a href="/">&larr; Back to Doppelganger</a>
             </div>
         </section>

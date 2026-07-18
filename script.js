@@ -582,18 +582,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    // Work dropdown: mobile taps expand it inline (desktop uses CSS hover)
+    document.querySelectorAll('.nav-mobile .nav-dropdown-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.closest('.nav-dropdown').classList.toggle('open');
+        });
+    });
+
+    // Smooth scrolling for nav links whose target is on THIS page; links to a
+    // section on another page (e.g. "/#about" from a sub-page) navigate normally.
+    const navLinks = document.querySelectorAll('nav a');
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+            const href = this.getAttribute('href') || '';
+            const hashIndex = href.indexOf('#');
+            if (hashIndex === -1) return;                 // no anchor → normal nav
+            const target = document.querySelector(href.slice(hashIndex));
+            if (target) {                                  // section is on this page → smooth
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
+            // else: let the browser navigate to the other page's section
         });
     });
     
